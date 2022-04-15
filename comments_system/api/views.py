@@ -12,16 +12,11 @@ class CreateRetrievePostViewSet(viewsets.GenericViewSet,
     serializer_class = PostSerializer
 
 
-class CreateListCommentViewSet(viewsets.GenericViewSet,
+class CreateCommentViewSet(viewsets.GenericViewSet,
                                mixins.CreateModelMixin,
                                ):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
-
-    def get_serializer_class(self):
-        if self.request.method == 'GET':
-            return CommentInPostSerializer
-        return CommentSerializer
 
     def perform_create(self, serializer):
         post_id = self.kwargs.get("post_id")
